@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        a{
+            padding: 1rem;
+        }
+        .oliveBeadGlazer{
+            margin: 1 rem;
+        }
+    </style>
+    <title>Lentele</title>
+</head>
+<body>
+    
+    <nav>
+        <a href="index23home.html">Lentelė</a>
+        <a href="add23home.html">Forma</a>
+    </nav>
+
+    <table id="oliveBeadGlazer"></table>
+
+<script>
+
+//BASE URL = https://olive-bead-glazer.glitch.me
+//1 uzduotis
+//Sukurkite puslapį, index.html, kurį užkrovus atsiranda lentelė su visais automobiliais iš base URL.
+
+//4 uzduotis
+//Sukurkite navigaciją, kad galėtumėte tarp puslapių vaikščioti ir patikrinkite ar įrašyti duomenys atsivaizduoja :)
+
+fetch('https://olive-bead-glazer.glitch.me')
+    //pirmas then papraso grazinti saita apskritai - jei toks saitas yra tai duomenys gauti ir return json, jei nepavyksta pasiekti - error - kazkas negerai
+  .then(pageOliveresponse => {
+      if (pageOliveresponse.ok){
+          //console.log("duomenys gauti")
+          return pageOliveresponse.json();
+          
+      }
+      else {
+          console.log("Kazkas negerai")
+      }
+  })
+  
+  //antras then jau ima duomenis kuriu mums reikia
+  .then(getApiOlivedata => {
+      let output ="";
+      output +=`<tr>
+        <th style="border:1px solid black">Brand</th>
+        <th style="border:1px solid black">Model</th>
+        </tr>`
+        getApiOlivedata.forEach((item,index) => {
+            output+= `<tr>
+        <th style="border:1px solid black">${item.brand}</th>
+        <th style="border:1px solid black">${item.model}</th>
+        </tr>`
+        })
+        //console.log(getApi1data)
+        document.getElementById("oliveBeadGlazer").innerHTML = output;
+        document.getElementById("oliveBeadGlazer").style.border = "1px solid black";
+        document.getElementById("oliveBeadGlazer").style.borderCollapse = "collapse";
+  })
+
+  .catch(err => console.log("nepavyko",err))   
+
+</script>
+
+
+</body>
+</html>

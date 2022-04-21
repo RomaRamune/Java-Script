@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .brand, .model{
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        input[type="submit"]{
+            margin-top: 1 rem;
+        }
+    </style>
+    <title>Input forma</title>
+</head>
+<body>
+
+    <nav>
+        <a href="index23home.html">Lentelė</a>
+        <a href="add23home.html">Forma</a>
+    </nav>
+    
+    <div id="rezultatas"></div>
+    <form id="addCarInfo" action="#">
+        <label for="brand">Brand</label>
+        <input id="brand" type="text" class="brand">
+        <label for="model">Model</label>
+        <input id="model" type="text" class="model">
+        <input type="submit" value="Paspausk">
+    </form>
+
+
+<script>
+
+//2 pratimas
+//Sukurkite papildomą puslapį, add.html, kuriame būtų forma su dviem inputais - brand ir model; šie paduotų su post'u informaciją į base url (formatas: objektas su dviem properties: brand ir model).
+
+
+//3 pratimas
+//Sukurkite notification - t.y. sėkmingai užpildžius formą ir gavus patvirtinimą, turi virš formos rašyti, kad duomenys sėkmingai išsaugoti; o jei blogai - išmesti errorą.
+
+//cia musu atsakomoji zinute bus i div irasyta
+let message = document.getElementById("rezultatas");
+
+        //situo sabloniniu fetch galim pamatyti kiek postu yra tam saite. Matome kad viso 3 siuo metu, tai musu kai desim bus ketvirtas
+        fetch('https://olive-bead-glazer.glitch.me')
+        .then(js23_olive =>js23_olive.json())//cia verciam i json'a
+        .then(js23_info => console.log(js23_info))
+
+
+        //pasiemam forma su id
+        const js23_manoDuomenys = document.getElementById("addCarInfo");
+        //sukuriam funkcija kuri paspaudus mygtuka irasys duomenis i api
+        js23_manoDuomenys.addEventListener("submit", (event) => {
+            //sustabdom forma nuo perkrovimo
+            event.preventDefault();
+            //pasiimam brand verte
+            let js23_brand = document.getElementById("brand").value;
+            //pasiimam model
+            let js23_model = document.getElementById("model").value;
+            //i sita saita dedam metoda post
+            fetch('https://olive-bead-glazer.glitch.me',{
+                //kad mes įkeliam - postinam info
+                method: "POST",
+                //kadangi mes idedam duomenis i forma, jis nesupranta, tai reikia pridet headers ir tada jis supras ka mes duodam
+                headers:{
+                    'Accept':'application/json, text/plain, */*',
+                    'content-type':'application/json',
+                },
+                //dedam i body: i title dedam kazkoki title ir i body dedam kazka body
+                //suformatuojame duomenis taip kad api pasiimtu
+                body:JSON.stringify({brand:js23_brand,model:js23_model}) //t.y.paaiskinam jam kad mes jam irgi paduodam stringa
+            })
+            //gaunam json atsakyma
+            .then((js23_resp) => {
+            if (js23_resp.ok) {
+              message.textContent = "Įsirašė!!!";
+              return js23_res.json();
+            } else {
+              alert("Klaidingai įvesti duomenys");
+            }
+          })
+
+
+            //atvaizduojame atsakyma konsoleje
+            .then(js23_data => console.log(js23_data))
+            //jei kazkas ne taip
+            .catch(err => console.log("nepavyko",err))  
+ 
+
+        });
+        
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
